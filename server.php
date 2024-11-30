@@ -33,8 +33,27 @@ function generateQuiz($settings) {
     $num2 = rand($min, $max);
 
     // Set Operator & Answer
+    $operator = $settings['operator'] ?? 'add';
+    $answer = 0; // Initialize Variable
+    switch ($operator) {
+        case 'add':
+            $answer = $num1 + $num2;
+            $operatorSymbol = '+';
+            break;
+        case 'sub':
+            $answer = $num1 - $num2;
+            $operatorSymbol = '-';
+            break;
+        case 'mul':
+            $answer = $num1 * $num2;
+            $operatorSymbol = '*';
+            break;
+        default:
+            $operatorSymbol = '+';
+            $answer = $num1 + $num2;
+    }
 
-    // Generate Choices
+    // Generate UNIQUE Choices
 }
 
 // REQUEST POST
