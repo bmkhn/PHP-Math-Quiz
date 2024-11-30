@@ -72,7 +72,26 @@ function generateQuiz($settings) {
 }
 
 // REQUEST POST
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $action = $_POST['action'] ?? '';
+
     // Save Settings
+    if ($action === 'save_settings') {
+        // Save quiz settings
+        $_SESSION['settings'] = [
+            'level' => $_POST['level'] ?? '1',
+            'operator' => $_POST['operator'] ?? 'add',
+            'num_items' => (int)($_POST['num_items'] ?? 5),
+            'max_diff' => (int)($_POST['max_diff'] ?? 10),
+        ];
+        if ($_SESSION['settings']['level'] === 'custom') {
+            $_SESSION['settings']['custom_min'] = (int)($_POST['custom_min'] ?? 1);
+            $_SESSION['settings']['custom_max'] = (int)($_POST['custom_max'] ?? 10);
+        }
+        header('Location: client.php');
+        exit;
+    }
     // Start Quiz
     // Submit Answer
+}
 ?>
