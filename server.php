@@ -54,6 +54,21 @@ function generateQuiz($settings) {
     }
 
     // Generate UNIQUE Choices
+    $choices = [$answer];
+    $max_diff = $settings['max_diff'] ?? 10;
+    while (count($choices) < 4) {
+        $choice = rand($answer - $max_diff, $answer + $max_diff);
+        if (!in_array($choice, $choices)) {
+            $choices[] = $choice;
+        }
+    }
+    shuffle($choices); // For Randomness
+
+    return [
+        'question' => "$num1 $operatorSymbol $num2 = ?",
+        'correct_index' => array_search($answer, $choices),
+        'choices' => $choices,
+    ];
 }
 
 // REQUEST POST
