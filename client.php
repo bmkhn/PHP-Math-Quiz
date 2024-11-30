@@ -14,10 +14,19 @@ session_start();
         <h1>Simple Mathematics</h1>
 
         <!-- START QUIZ FORM -->
+        <form method="post" action="server.php">
+            <button type="submit" name="action" value="start_quiz">Start Quiz</button>
+        </form>
+
         <!-- SETTINGS BUTTON -->
+        <button>Settings</button>
+
         <!-- RESULTS SECTION -->
+
         <!-- QUIZ SECTION -->
+
         <!-- SETTINGS SECTION -->
+         
     </div> <!-- Container Div -->
 </body>
 </html>
