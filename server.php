@@ -108,5 +108,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Submit Answer
+    if ($action === 'submit_answer') {
+        // Handle answer submission
+        if (!isset($_SESSION['quiz'])) {
+            header('Location: client.php');
+            exit;
+        }
+
+        $quiz = $_SESSION['quiz'];
+        $selectedIndex = (int)$_POST['answer'];
+        $correctIndex = $quiz['correct_index'] ?? null;
+
+        if ($correctIndex !== null && $selectedIndex === $correctIndex) {
+            $_SESSION['results']['correct']++;
+        } else {
+            $_SESSION['results']['wrong']++;
+        }
+
+        if ($_SESSION['current_round'] < $_SESSION['total_items']) {
+            $_SESSION['current_round']++;
+            $_SESSION['quiz'] = generateQuiz($_SESSION['settings']);
+        } else {
+            $_SESSION['results']['remarks'] = "Quiz Completed!";
+            unset($_SESSION['quiz']);
+        }
+
+        header('Location: client.php');
+        exit;
+    }
 }
 ?>

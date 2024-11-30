@@ -26,7 +26,7 @@ $quizActive = isset($_SESSION['quiz']);
     </style>
 </head>
 <body>
-    <div>
+    <div class="container">
         <h1>Simple Mathematics</h1>
 
         <!-- START QUIZ FORM -->
@@ -34,10 +34,21 @@ $quizActive = isset($_SESSION['quiz']);
             <button type="submit" name="action" value="start_quiz">Start Quiz</button>
         </form>
 
+
         <!-- SETTINGS BUTTON -->
         <button onclick="toggleSettings()">Settings</button>
 
+
         <!-- RESULTS SECTION -->
+        <?php if (isset($_SESSION['results'])): ?>
+            <div id="results">
+                <p>Correct: <?= $_SESSION['results']['correct']; ?> | Wrong: <?= $_SESSION['results']['wrong']; ?></p>
+                <?php if (!isset($_SESSION['quiz'])): ?>
+                    <p>Remarks: <?= $_SESSION['results']['remarks']; ?></p>
+                <?php endif; ?>
+            </div>
+        <?php endif; ?>
+
 
         <!-- QUIZ SECTION -->
         <?php if ($quizActive): ?>
@@ -87,13 +98,14 @@ $quizActive = isset($_SESSION['quiz']);
             <label> Max Difference: <input type="number" name="max_diff" value="<?= $settings['max_diff'] ?>" min="1" required> </label><br><br>
             <button type="submit" name="action" value="save_settings">Save Settings</button>
         </form>
-
     </div> <!-- Container Div -->
+
     <script>
         function toggleSettings() {
             const form = document.getElementById('settings-form');
             form.classList.toggle('hidden');
         }
     </script>
+
 </body>
 </html>
