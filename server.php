@@ -11,6 +11,7 @@ if (!isset($_SESSION['settings'])) {
     ];
 }
 
+
 // generateQuiz
 function generateQuiz($settings) {
     // Set Level - Min/Max Value
@@ -63,7 +64,6 @@ function generateQuiz($settings) {
         }
     }
     shuffle($choices); // For Randomness
-
     return [
         'question' => "$num1 $operatorSymbol $num2 = ?",
         'correct_index' => array_search($answer, $choices),
@@ -77,7 +77,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Save Settings
     if ($action === 'save_settings') {
-        // Save quiz settings
         $_SESSION['settings'] = [
             'level' => $_POST['level'] ?? '1',
             'operator' => $_POST['operator'] ?? 'add',
