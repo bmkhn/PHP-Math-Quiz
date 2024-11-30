@@ -8,6 +8,8 @@ $settings = $_SESSION['settings'] ?? [
     'num_items' => 5,
     'max_diff' => 10,
 ];
+
+$quizActive = isset($_SESSION['quiz']);
 ?>
 
 <!DOCTYPE html>
@@ -38,6 +40,24 @@ $settings = $_SESSION['settings'] ?? [
         <!-- RESULTS SECTION -->
 
         <!-- QUIZ SECTION -->
+        <?php if ($quizActive): ?>
+        <?php
+            $currentRound = $_SESSION['current_round']; // Current Round
+            $totalRounds = $_SESSION['total_items']; // Total Rounds
+        ?>
+        <form method="post" action="server.php">
+            <h3>Round <?= $currentRound; ?>/<?= $totalRounds; ?></h3>
+            <p><?= $_SESSION['quiz']['question']; ?></p>
+            <?php foreach ($_SESSION['quiz']['choices'] as $key => $choice): ?>
+                <label>
+                    <input type="radio" name="answer" value="<?= $key; ?>" required>
+                    <?= $choice; ?>
+                </label><br>
+            <?php endforeach; ?> <br>
+            <button type="submit" name="action" value="submit_answer">Submit Answer</button>
+        </form>
+        <?php endif; ?>
+
 
         <!-- SETTINGS SECTION -->
         <form method="post" action="server.php" id="settings-form" class="hidden">

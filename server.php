@@ -91,7 +91,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Location: client.php');
         exit;
     }
+
     // Start Quiz
+    if ($action === 'start_quiz') {
+        $settings = $_SESSION['settings'];
+        $_SESSION['quiz'] = generateQuiz($settings);
+        $_SESSION['results'] = [
+            'correct' => 0,
+            'wrong' => 0,
+            'remarks' => '',
+        ];
+        $_SESSION['current_round'] = 1; // Initialize Current Round
+        $_SESSION['total_items'] = $settings['num_items']; // Store Total Rounds
+        header('Location: client.php');
+        exit;
+    }
+
     // Submit Answer
 }
 ?>
