@@ -12,10 +12,30 @@ if (!isset($_SESSION['settings'])) {
 }
 
 // generateQuiz
-    // Level - Set Minimum and Maximum Value
+function generateQuiz($settings) {
+    // Set Level - Min/Max Value
+    $min = 1; // Default Minimum Value
+    $max = 10; // Default Maximum Value
+
+    if ($settings['level'] === '1') {
+        $min = 1;
+        $max = 10;
+    } elseif ($settings['level'] === '2') {
+        $min = 11;
+        $max = 100;
+    } elseif ($settings['level'] === 'custom') {
+        $min = $settings['custom_min'] ?? 1;
+        $max = $settings['custom_max'] ?? 10;
+    }
+
     // Generate Random Number (Operands) 
+    $num1 = rand($min, $max);
+    $num2 = rand($min, $max);
+
     // Set Operator & Answer
+
     // Generate Choices
+}
 
 // REQUEST POST
     // Save Settings
